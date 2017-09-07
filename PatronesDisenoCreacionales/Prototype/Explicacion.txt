@@ -1,0 +1,120 @@
+Prototipo
+Nombre: Prototype
+
+Problema y Contexto:
+En algunos casos, el coste de crear un objeto nuevo desde 0 es muy elevado, y más aún si luego hay que establecer 
+una gran colección de atributos. En éste contexto sería más conveniente clonar un objeto predeterminado que actúe 
+de prototipo y modificar los valores necesarios para que se ajuste a su nuevo propósito.
+.
+Se aplica cuando:
+    La creación de nuevos objetos acarrea un coste computacional elevado..
+    Los objetos a crear tienen o suelen tener atributos que repiten su valor.
+
+Solución y Estructura:
+
+La solución consistirá en definir una interfaz que expone el método necesario para realizar la clonación del objeto. 
+Las clases que pueden ser clonadas implementarán esta interfaz, mientras que las clases que deseen clonar deberán utilizar 
+el método definido en la interfaz.
+
+Además, existen 2 tipos de clonación: la clonación profunda y la clonación superficial. En la clonación superficial modificar 
+las referencias a terceros objetos hace que los originales cambien, ya que los terceros objetos son en realidad punteros. 
+En la clonación profunda se clonan los terceros objetos dando lugar a nuevas referencias independientes.
+Consecuencias:
+
+POSITIVAS:
+    Clonar un objeto es mucho más rápido que crearlo.
+    Un programa puede añadir y borrar dinámicamente objetos prototipo en tiempo de ejecución.
+    El cliente no debe conocer los detalles de cómo construir los objetos prototipo.
+NEGATIVAS
+    En objetos muy complejos, implementar la interfaz Prototype puede ser muy complicada.
+
+Ejemplo:
+
+Tenemos una fábrica de camisetas con estampados, típicas de las ferias y mercadillos. Para crear nuevas camisetas, cogeremos una similar y modificaremos únicamente el color, la talla y el estampado. Empezamos con el prototipo:
+
+public abstract class Camiseta {
+        private String nombre;
+        private Integer talla;
+        private String color;
+        private String manga;
+        private String estampado;
+        private Object material;
+
+        public Camiseta (String nombre,Integer talla, String color, String manga, String estampado, Object material){
+                this.nombre = nombre;
+                this.talla = talla;
+                this.color = color;
+                this.manga = manga;
+                this.estampado = estampado;
+                this.material = material;
+        }
+        public abstract Camiseta clone();
+        /*
+         * Todos los getter y los setter.
+        */
+}
+
+
+Ahora construiremos los prototipos concretos para camisetas de manga larga y manga corta:
+
+public class CamisetaMCorta extends Camiseta{
+        public CamisetaMCorta(Integer talla, String color, String estampado){
+                this.nombre = “Prototipo”;
+                this.talla = talla;
+                this.color = color;
+                this.manga = “Corta”;
+                this.estampado = estampado;
+                this.material = new Lana();
+        }
+        public Camiseta clone(){
+                return new CamisetaMCorta(this.talla, this.color, this.estampado);
+        }
+}
+
+public class CamisetaMLarga extends Camiseta{
+        public CamisetaMLarga(Integer talla, String color, String estampado){
+                this.nombre = “Prototipo”;
+                this.talla = talla;
+                this.color = color;
+                this.manga = “Larga”;
+                this.estampado = estampado;
+                this.material = new Lana();
+        }
+        public Camiseta clone(){
+                return new CamisetaMLarga(this.talla, this.color, this.estampado);
+        }
+}
+
+Por último, el método main hará de cliente y creará distintas camisetas tanto de manga larga como de manga corta a partir de prototipos.
+
+public static void main(String[] args){
+// Recibiremos en los argumentos los estampados de las camisetas
+
+// Creamos los prototipos
+Camiseta prototipoMCorta = new CamisetaMCorta(40, “blanco”, “Logotipo”);
+Camiseta prototipoMLarga = new prototipoMLarga(40, “blanco”, “Logotipo”);
+
+// Almacenamos las camisetas disponibles
+ArrayList camisetas = new ArrayList();
+
+for(int i = 0; i<args.length;i++){
+                Camiseta cc =  prototipoMCorta.clone();
+                cc.setEstampado(args[i]);
+ 
+                for(int j = 35; j<60; j++){
+                        Camiseta cc_talla = cc.clone();
+                        cc_talla.setTalla(j);
+                        camisetas.add(cc_talla);
+                }
+                
+ 
+                Camiseta cl =  prototipoMLarga.clone();
+                cl.setEstampado(args[i]);
+                
+                for(int j = 35; j<60; j++){
+                        Camiseta cl_talla = cl.clone();
+                        cl_talla.setTalla(j);
+                        camisetas.add(cl_talla);
+                }               
+        }
+}
