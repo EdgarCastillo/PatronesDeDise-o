@@ -25,7 +25,8 @@ Ejemplo programático
 
 La alternativa sana es utilizar el patrón Builder. En primer lugar tenemos a nuestro héroe que queremos crear:
 
-public final class Hero {
+public final class Hero
+{
   private final Profession profession;
   private final String name;
   private final HairType hairType;
@@ -33,7 +34,8 @@ public final class Hero {
   private final Armor armor;
   private final Weapon weapon;
 
-  private Hero(Builder builder) {
+  private Hero(Builder builder)
+  {
     this.profession = builder.profession;
     this.name = builder.name;
     this.hairColor = builder.hairColor;
