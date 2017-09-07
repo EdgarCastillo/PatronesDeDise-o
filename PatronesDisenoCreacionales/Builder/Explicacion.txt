@@ -90,3 +90,8 @@ public static class Builder {
   }
   y se puede usar como :
   Hero mage = new Hero.Builder(Profession.MAGE, "Riobard").withHairColor(HairColor.BLACK).withWeapon(Weapon.DAGGER).build();
+
+Utilice el patrón Builder cuando:
+
+*El algoritmo para crear un objeto complejo debe ser independiente de las partes que componen el objeto y cómo se montan.
+*El proceso de construcción debe permitir diferentes representaciones para el objeto que se construye.
