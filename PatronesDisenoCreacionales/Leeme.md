@@ -1,11 +1,19 @@
 ///////Builder ///////
+
 Separar la construcción de un objeto complejo de su representación para que el mismo proceso de construcción pueda crear diferentes representaciones
+
 ///////Explicación///////
+
 -------Ejemplo de la vida real-------
+
 Imagina un generador de personajes para un juego de rol.La opcion más facil es dejar a la computadora cree el personaje para usted. Pero si quieres seleccionar los detalles del personaje como profesión, género, color de cabello, etc., la generación de personajes se convierte en un proceso paso a paso que se completa cuando todas las selecciones están listas.
+
 En otras palabras:
+
 Le permite crear diferentes configuraciones de un objeto evitando la contaminación del constructor. Útil cuando puede haber varias configuraciones de un objeto. O cuando hay un montón de pasos involucrados en la creación de un objeto.
+
 Wikipedia dice:
+
 El patrón del constructor es un patrón de diseño de software de creación de objetos con las intenciones de encontrar una solución al anti-patrón del constructor telescópico.
 Dicho esto, permítanme añadir un poco sobre lo que el constructor telescópico anti-patrón es. En un momento u otro hemos visto un constructor como el siguiente:
       public Hero(Profession profession, String name, HairType hairType, HairColor hairColor, Armor armor, Weapon weapon) 
