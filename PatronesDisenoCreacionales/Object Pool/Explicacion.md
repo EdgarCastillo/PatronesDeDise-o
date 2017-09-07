@@ -10,4 +10,5 @@ https://github.com/iluwatar/java-design-patterns/blob/master/object-pool/etc/obj
 Utilice el patrón Pool de objetos cuando
 
 *Los objetos son costosos de crear (costo de asignación)
+
 *Se necesita un gran número de objetos de corta duración (fragmentación de memoria)
