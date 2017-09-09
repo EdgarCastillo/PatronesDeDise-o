@@ -1,0 +1,50 @@
+Factory Method es un patrón de diseño que define una interfaz para crear un objeto, pero deja que sean las subclases quienes decidan qué clase instanciar.
+Permite que una clase delegue en sus subclases la creación de objetos. El patrón Factory Method permite escribir aplicaciones que son más flexibles respecto de
+los tipos a utilizar difiriendo la creación de las instancias en el sistema a subclases que pueden ser extendidas a medida que evoluciona el sistema.
+Permite también encapsular el conocimiento referente a la creación de objetos. Factory Method hace también que el diseño sea más adaptable a cambio de sólo un
+poco más de complejidad.
+Ventajas:
+Se gana en flexibilidad, pues crear los objetos dentro de una clase con un "Método de Fábrica" es siempre más flexible que hacerlo directamente, debido a que se
+elimina la necesidad de atar nuestra aplicación unas clases de productos concretos.
+Se facilitan futuras ampliaciones, puesto que se ofrece las subclases la posibilidad de proporcionar una versión extendida de un objeto, con sólo aplicar en los
+Productos la misma idea del "Método de Fábrica".
+Se facilita, en cuanto a que se hace natural, la conexión entre jerarquías de clases paralelas, que son aquellas que se generan cuando una clase delega algunas
+de sus responsabilidades en una clase aparte. Ambas jerarquías de clases paralelas son creadas por un mismo cliente y el patrón Método de Fábrica establece la
+relación entre parejas de subclases concretas en las mismas.
+Inconvenientes:
+Se obliga al cliente a definir subclases de la clase "Creador" sólo para crear un producto concreto y esto puede no ser apropiado siempre.
+Ejemplo:
+from __future__ import generators
+import random
+
+class Shape(object):
+    def factory(type):
+        if type == "Circle": return Circle()
+        if type == "Square": return Square()
+        assert 0, "Bad shape creation: " + type
+    factory = staticmethod(factory)
+
+class Circle(Shape):
+    def draw(self): print("Circle.draw")
+    def erase(self): print("Circle.erase")
+
+class Square(Shape):
+    def draw(self): print("Square.draw")
+    def erase(self): print("Square.erase")
+
+def shapeNameGen(n):
+    types = Shape.__subclasses__()
+    for i in range(n):
+        yield random.choice(types).__name__
+
+shapes = \
+  [ Shape.factory(i) for i in shapeNameGen(7)]
+
+for shape in shapes:
+    shape.draw()
+    shape.erase()
+
+Debe usarse:
+Cuando una clase no puede adelantar las clases de objetos que debe crear.
+Cuando una clase pretende que sus subclases especifiquen los objetos que ella crea.
+Cuando una clase delega su responsabilidad hacia una de entre varias subclases auxiliares y queremos tener localizada a la subclase delegada.
